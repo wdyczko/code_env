@@ -58,7 +58,10 @@ def register_sh(name, enter_msg=None, exit_msg=None):
     register_component("%s.sh" % name, name, enter_msg, exit_msg)
 
 def configure():
-    pass
+    register_component("run_cscope.sh", "cs")
+    register_component("generate_cscope_c.sh", "generate_cscope_c")
+    register_component("generate_ctags.sh", "generate_ctags")
+    register_component("prepare_env_c.sh", "prepare_env_c")
 
 def install():
     configure()

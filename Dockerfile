@@ -25,12 +25,6 @@ RUN yum install -y git && \
     yum install -y wget && \
     yum install -y ncurses-devel
 
-ADD scripts/* /tmp/scripts/
-
-RUN cd /tmp/scripts && \
-    find . -name "*.py" -o -name "*.sh" | xargs chmod +x && \
-    python install.py
-
 RUN cd /tmp/ && \
     wget https://github.com/Kitware/CMake/releases/download/v3.13.3/cmake-3.13.3.tar.gz && \
     tar -xvf cmake-3.13.3.tar.gz && \
@@ -65,6 +59,12 @@ RUN cd /tmp/ && \
     vim +PlugInstall +qall
 
 RUN curl https://beyondgrep.com/ack-2.24-single-file > /usr/bin/ack && chmod 0755 /usr/bin/ack
+
+ADD scripts/* /tmp/scripts/
+
+RUN cd /tmp/scripts && \
+    find . -name "*.py" -o -name "*.sh" | xargs chmod +x && \
+    python install.py
 
 ENV LC_ALL="en_US.UTF-8"
 ENV EDITOR=vim
