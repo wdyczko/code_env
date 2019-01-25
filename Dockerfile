@@ -68,5 +68,6 @@ RUN cd /tmp/scripts && \
 
 ENV LC_ALL="en_US.UTF-8"
 ENV EDITOR=vim
+ENV TERM=xterm-256color
 
 ENTRYPOINT ["loop.sh"]
