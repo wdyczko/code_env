@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-docker run -i -d --name dev dev
+if [ $# -eq 1 ]
+then
+    docker run -v $1:/code -i -d --name dev dev
+else
+    docker run -i -d --name dev dev
+fi;
+

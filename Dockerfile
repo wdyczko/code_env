@@ -1,10 +1,10 @@
 FROM centos
-ENV PROXY_IP=87.254.212.120
-ENV PROXY_PORT=8080
-ENV http_proxy=http://${PROXY_IP}:${PROXY_PORT}
-ENV https_proxy=https://${PROXY_IP}:${PROXY_PORT}
-ENV HTTP_PROXY=http://${PROXY_IP}:${PROXY_PORT}
-ENV HTTPS_PROXY=https://${PROXY_IP}:${PROXY_PORT}
+# ENV PROXY_IP=87.254.212.120
+# ENV PROXY_PORT=8080
+# ENV http_proxy=http://${PROXY_IP}:${PROXY_PORT}
+# ENV https_proxy=https://${PROXY_IP}:${PROXY_PORT}
+# ENV HTTP_PROXY=http://${PROXY_IP}:${PROXY_PORT}
+# ENV HTTPS_PROXY=https://${PROXY_IP}:${PROXY_PORT}
 
 ENV TOOLS /tools
 ENV PATH $PATH:$TOOLS:$TOOLS/bin
@@ -23,7 +23,11 @@ RUN yum install -y git && \
     yum install -y gcc-c++ && \
     yum install -y make && \
     yum install -y wget && \
-    yum install -y ncurses-devel
+    yum install -y ncurses-devel && \
+    yum install -y zlib-devel && \
+    yum groupinstall -y "Development Tools"
+
+RUN cd /tmp && wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tar.xz && tar -xJf Python-3.6.4.tar.xz && cd Python-3.6.4 && ./configure && make && make install
 
 RUN cd /tmp/ && \
     wget https://github.com/Kitware/CMake/releases/download/v3.13.3/cmake-3.13.3.tar.gz && \
@@ -47,7 +51,8 @@ RUN chmod +x /tools/loop.sh
 RUN cd /tmp && \
     git clone https://github.com/vim/vim.git && \
     cd vim && \
-    ./configure --disable-nls --enable-cscope --enable-gui=no --enable-multibyte --enable-pythoninterp --with-features=huge --with-tlib=ncurses --without-x && \
+    ./configure --disable-nls --enable-cscope --enable-gui=no --enable-multibyte --enable-pythoninterp=yes --with-features=huge --with-tlib=ncurses --without-x && \
+
     make && \
     make install
 
@@ -69,5 +74,6 @@ RUN cd /tmp/scripts && \
 ENV LC_ALL="en_US.UTF-8"
 ENV EDITOR=vim
 ENV TERM=xterm-256color
+
 
 ENTRYPOINT ["loop.sh"]
