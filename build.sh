@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t dev .
+docker build -t env .

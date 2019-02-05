@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker stop dev && docker rm dev
+docker stop env && docker rm env

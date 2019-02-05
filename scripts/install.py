@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import subprocess
 import os
@@ -63,6 +63,7 @@ def configure():
     register_component("generate_ctags.sh", "generate_ctags")
     register_component("prepare_env_c.sh", "prepare_env_c")
     register_component("find_file.sh", "ff")
+    register_component("loop.sh", "loop")
 
 def install():
     configure()
